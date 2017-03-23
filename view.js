@@ -24,10 +24,9 @@ class VisualView {
 
         this.images = images ? images : this.images;
         this.columns = columns ? columns : this.columns;
-      	let imageWidth = window.innerWidth / columns;
+		this.squareWidth = window.innerWidth / columns;
       	this.rows = this.calculateRows(imageWidth);
-      	let imageHeight = window.innerHeight / rows;
-      
+      	this.squareHeight = window.innerHeight / rows;      
         
         this.dom.innerHTML = "";
       
