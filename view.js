@@ -61,6 +61,7 @@ class VisualView {
         let inner = document.createElement("div");
 
         element.className = "gif";
+      	inner.className = "inner-div";
 
         helpers.applyStyle(element, {
             width: width + "px",
@@ -73,7 +74,7 @@ class VisualView {
           	backgroundImage: "url(" + image + ")";
         });
 
-        inner.classList.add("inner-div");
+        
         element.appendChild(inner);
         this.dom.appendChild(element)
 
