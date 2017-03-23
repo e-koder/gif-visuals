@@ -19,7 +19,7 @@ class VisualView {
     }
 
     calculateRows(squareWidth) {
-        return Math.floor(window.innerWidth / squareWidth);
+        return Math.floor(window.innerHeight / squareWidth);
     }
 
     initGrid(images, columns) {
