@@ -5,6 +5,8 @@ class VisualView {
         this.columns = 12;
         this.rows = null;
         this.images = [];
+      	this.squareWidth = 0;
+      	this.squareHeight = 0;
         this.elements = [];
         this.dom = dom;
 
