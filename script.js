@@ -74,7 +74,7 @@ class gifVisual{
     		this.images.push(this.allImages[randomImageIndex]);
     	}
 
-    	this.view.initGrid.call(this.view, this.images);
+    	this.view.initGrid.call(this.view, this.images, 5);
         this.effects.applyEffect(elements, "colorRoll");
     }
 
