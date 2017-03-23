@@ -1,12 +1,12 @@
 class VisualView {
 
-    constructor(domRoot) {
+    constructor(dom) {
 
         this.columns = 12;
         this.rows = this.getRows(this.columns);
         this.images = [];
         this.elements = [];
-        this.dom = domRoot;
+        this.dom = dom;
 
     }
 
