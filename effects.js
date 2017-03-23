@@ -117,7 +117,9 @@ class VisualEffects {
                 zIndex: i,
                 transform: "scale(1)",
                 top: element.dataset.top,
-                left: element.dataset.left
+                left: element.dataset.left,
+              	bottom: auto,
+              	right: auto
             });
 
             if (i===randomIndex) {
@@ -125,9 +127,10 @@ class VisualEffects {
                     zIndex: elements.length+1,
                     filter: "grayscale(0)",
                     opacity: 1,
-                    transform: "translate(-50%, -50%) scale(5)",
-                    top: "50%",
-                    left: "50%"
+                    top: "10%",
+                  	bottom: "10%",
+                  	left: "20%",
+                  	right: "20%"
                 });
             }
         }
