@@ -67,8 +67,8 @@ class VisualView {
         helpers.applyStyle(element, {
             width: width + "px",
             height: height + "px",
-            top: imageHeight * y + "px",
-            left: imageWidth * x + "px"
+            top: height * y + "px",
+            left: width * x + "px"
         });
 
         inner.className = "inner-div";
