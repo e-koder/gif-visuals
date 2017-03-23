@@ -59,8 +59,6 @@ class VisualView {
         let rows = this.rows;
         let element = document.createElement("div");
         let inner = document.createElement("div");
-        let imageWidth = window.innerWidth / columns;
-        let imageHeight = window.innerHeight / rows;
 
         element.className = "gif";
 
@@ -77,8 +75,8 @@ class VisualView {
         this.dom.appendChild(element)
 
         helpers.saveProps(element, {
-            top: imageHeight * y + "px",
-            left: imageWidth * x + "px"
+            top: height * y + "px",
+            left: width * x + "px"
         });
     }
 
