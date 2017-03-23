@@ -18,8 +18,8 @@ class VisualView {
 
     }
 
-    calculateRows(imageWidth) {
-        return Math.floor(window.innerWidth / imageWidth);
+    calculateRows(squareWidth) {
+        return Math.floor(window.innerWidth / squareWidth);
     }
 
     initGrid(images, columns) {
@@ -27,7 +27,7 @@ class VisualView {
         this.images = images ? images : this.images;
         this.columns = columns ? columns : this.columns;
 		this.squareWidth = window.innerWidth / columns;
-      	this.rows = this.calculateRows(imageWidth);
+      	this.rows = this.calculateRows(squareWidth);
       	this.squareHeight = window.innerHeight / rows;      
         
         this.dom.innerHTML = "";
