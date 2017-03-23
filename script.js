@@ -159,7 +159,7 @@ class gifVisual{
 
 $(document).ready(function () {
 
-    let view = new VisualView();
+    let view = new VisualView(document.querySelector(".wrapper-main"));
     let effects = new VisualEffects(view);
     let controller = new gifVisual(view, effects);
 
