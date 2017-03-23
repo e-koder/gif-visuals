@@ -32,6 +32,7 @@ body {
 .wrapper-main .gif .inner-div {
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.5);
     background-size: 100% 100%;
+  	background-size: cover;
     background-position: center;
     height: 98%;
     width: 98%;
