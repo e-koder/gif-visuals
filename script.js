@@ -12,7 +12,7 @@ class gifVisual{
         this.allImages = [];
         this.images = [];
         this.imagesNum = 0;
-        this.visual = window; ///window.open("visual.html","VisualWindow");
+        this.visual = window;
         this.firstIndex = 0;
 
         this.mainElement = this.visual.document.querySelector(".wrapper-main");
