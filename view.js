@@ -73,8 +73,7 @@ class VisualView {
       	helpers.aplyStyle(inner, {
           	backgroundImage: "url(" + image + ")";
         });
-
-        
+      
         element.appendChild(inner);
         this.dom.appendChild(element)
 
