@@ -65,8 +65,8 @@ class VisualView {
         element.className = "gif";
 
         helpers.applyStyle(element, {
-            width: imageWidth + "px",
-            height: imageHeight + "px",
+            width: width + "px",
+            height: height + "px",
             top: imageHeight * y + "px",
             left: imageWidth * x + "px"
         });
