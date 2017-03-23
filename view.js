@@ -16,7 +16,7 @@ class VisualView {
 
     }
 
-    getRows(columns) {
+    calculateRows(columns) {
         return Math.ceil(columns / 16 * 9);
     }
 
