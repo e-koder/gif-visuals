@@ -42,7 +42,7 @@ class VisualView {
 
                 let image = this.images[currentIndex];
                 elements.push(image);
-                this.addElement.call(this, image, x, y);
+                this.addElement.call(this, image, squareWidth, squareHeight, x, y);
 
                 currentIndex++;
                 if (currentIndex == totalImages) {
@@ -53,7 +53,7 @@ class VisualView {
         }
     }
 
-    addElement(image, x, y) {
+    addElement(image, width, height, x, y) {
 
         let columns = this.columns;
         let rows = this.rows;
