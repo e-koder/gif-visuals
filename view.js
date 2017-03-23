@@ -28,7 +28,7 @@ class VisualView {
         this.columns = columns ? columns : this.columns;
 		this.squareWidth = window.innerWidth / columns;
       	this.rows = this.calculateRows(this.squareWidth);
-      	this.squareHeight = window.innerHeight / rows;      
+      	this.squareHeight = window.innerHeight / this.rows;      
         
         this.dom.innerHTML = "";
       
