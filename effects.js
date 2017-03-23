@@ -111,20 +111,12 @@ class VisualEffects {
             let element = elements[i];
             element.style.transform = "scale(1)";
           
-          	element.classList.remove("zoom");
-
-            helpers.applyStyle(element, {
-                filter: "grayscale(1)",
-                opacity: 0.2,
-                zIndex: i,
-                transform: "scale(1)",
-                top: element.dataset.top,
-                left: element.dataset.left,
-              	bottom: auto,
-              	right: auto
-            });
+          	element.classList.remove("effect-zoom-max");
+element.classList.remove("effect-zoom-min");
 
             if (i===randomIndex) {
+
+elements.classList.add("effect-zoom-max");
                 helpers.applyStyle(element, {
                     zIndex: elements.length+1,
                     filter: "grayscale(0)",
