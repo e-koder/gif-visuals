@@ -3,7 +3,7 @@ class VisualView {
     constructor(dom) {
 
         this.columns = 12;
-        this.rows = this.getRows(this.columns);
+        this.rows = null;
         this.images = [];
         this.elements = [];
         this.dom = dom;
