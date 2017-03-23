@@ -64,7 +64,7 @@ class gifVisual{
 
     mapImages(combinations){
 
-    	 combinations = combinations ? combinations : Math.ceil(Math.random()*5);
+    	combinations = combinations ? combinations : Math.ceil(Math.random()*5);
     	this.images = [];
     	let elements = this.mainElement.querySelectorAll(".gif");
     	let j=0;
