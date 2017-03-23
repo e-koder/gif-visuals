@@ -163,6 +163,4 @@ $(document).ready(function () {
     let effects = new VisualEffects(view);
     let controller = new gifVisual(view, effects);
 
-
-
 });
