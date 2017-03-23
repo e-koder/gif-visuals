@@ -30,9 +30,6 @@ class VisualView {
         
         this.dom.innerHTML = "";
       
-      	let imageWidth = window.innerWidth / columns;
-        let imageHeight = window.innerHeight / rows;
-      
         let elements = this.elements;
         let totalElements = this.columns * this.rows;
         let totalImages = this.images.length;
