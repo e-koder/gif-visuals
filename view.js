@@ -16,8 +16,8 @@ class VisualView {
 
     }
 
-    calculateRows(columns) {
-        return Math.ceil(columns / 16 * 9);
+    calculateRows(imageWidth) {
+        return Math.floor(window.innerWidth / imageWidth);
     }
 
     initGrid(images, columns) {
