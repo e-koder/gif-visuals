@@ -68,9 +68,12 @@ class VisualView {
           	left: width * x + "px",
             top: height * y + "px"         
         });
+      
+      	helpers.aplyStyle(inner, {
+          	backgroundImage: "url(" + image + ")";
+        });
 
-        inner.className = "inner-div";
-        inner.style.backgroundImage = "url(" + image + ")";
+        inner.classList.add("inner-div");
         element.appendChild(inner);
         this.dom.appendChild(element)
 
