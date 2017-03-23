@@ -110,6 +110,8 @@ class VisualEffects {
 
             let element = elements[i];
             element.style.transform = "scale(1)";
+          
+          	element.classList.remove("zoom");
 
             helpers.applyStyle(element, {
                 filter: "grayscale(1)",
