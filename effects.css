@@ -1,0 +1,10 @@
+.effects-zoom-max {
+zIndex: 200,
+filter: "grayscale(0)",
+                    opacity: 1,
+         top: "10%",
+                  	bottom: "10%",
+                  	left: "20%",
+                  	right: "20%"
+                  	
+                  }
