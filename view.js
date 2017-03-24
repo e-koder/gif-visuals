@@ -1,3 +1,7 @@
+/* global helpers */
+
+"use strict";
+
 class VisualView {
 
     constructor(dom) {
@@ -17,6 +21,8 @@ class VisualView {
         this.images = images;
 
     }
+    
+    // komentar nepotreben
 
     calculateRows(squareWidth) {
         return Math.ceil(window.innerHeight / squareWidth);
@@ -70,8 +76,8 @@ class VisualView {
             top: height * y + "px"         
         });
       
-      	helpers.aplyStyle(inner, {
-          	backgroundImage: "url(" + image + ")";
+      	helpers.applyStyle(inner, {
+          	backgroundImage: "url(" + image + ")"
         });
       
         element.appendChild(inner);
