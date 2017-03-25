@@ -47,7 +47,7 @@ class gifVisual{
     
     initEvents(){
         
-        ['orientationchange'].forEach(event => window.addEventListener(event, ()=>{
+        ['orientationchange', 'resize'].forEach(event => window.addEventListener(event, ()=>{
             
             this.view.optimizeGrid.call(this.view);
     	    this.view.initGrid.call(this.view, this.images);
