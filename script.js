@@ -1,7 +1,8 @@
 "use strict";
 
 /*global VisualView
-global VisualEffects*/
+global VisualEffects
+class gifObj*/
 
 class gifVisual{
 
@@ -78,7 +79,7 @@ class gifVisual{
         let gifs, gifsRoot;
 
         let r = Math.random()>0.5 ? 0:1;
-        r=1;
+        r=2;
         gifs = gifObj[r].list;
         gifsRoot = gifObj[r].root;
 
