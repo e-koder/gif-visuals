@@ -102,12 +102,14 @@ class gifVisual{
 
 
     switchBlinker(force){
+        if(this.blinker)
+                clearInterval(this.blinker);
+                
         if(force){
             this.invertColor.call(this);
             this.blinker = setInterval(this.invertColor.bind(this), 70);
         }else{
-            if(this.blinker)
-                clearInterval(this.blinker);
+            
             this.blinker = false;
             this.invert = 0;
             this.setStyle.call(this);
