@@ -1,3 +1,5 @@
+"use strict";
+
 const effectsDef = {
     colorRoll: "colorRoll",
     zoomRoll: "zoomRoll"

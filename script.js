@@ -1,4 +1,7 @@
+"use strict";
 
+/*global VisualView
+global VisualEffects*/
 
 class gifVisual{
 
@@ -75,7 +78,7 @@ class gifVisual{
         let gifs, gifsRoot;
 
         let r = Math.random()>0.5 ? 0:1;
-        r=0;
+        r=1;
         gifs = gifObj[r].list;
         gifsRoot = gifObj[r].root;
 
@@ -182,10 +185,11 @@ class gifVisual{
 
 }
 
-$(document).ready(function () {
+window.onload = ()=> {
 
     let view = new VisualView(document.querySelector(".wrapper-main"));
     let effects = new VisualEffects(view);
     let controller = new gifVisual(view, effects);
 
-});
+
+};
