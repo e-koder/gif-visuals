@@ -25,7 +25,7 @@ class VisualView {
     
     optimizeGrid(){
         
-        let devicePixelRatio = window.devicePixelRatio || 1;
+        let devicePixelRatio = 1//window.devicePixelRatio || 1;
         
         let physicalWidth = window.innerWidth / devicePixelRatio;
         let physicalHeight = window.innerHeight / devicePixelRatio;
