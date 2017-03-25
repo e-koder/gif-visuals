@@ -47,13 +47,25 @@ class gifVisual{
     
     initEvents(){
         
+        let timeout = null;
+        
         ['orientationchange', 'resize'].forEach(event => window.addEventListener(event, ()=>{
             
-            this.view.optimizeGrid.call(this.view);
-    	    this.view.initGrid.call(this.view, this.images);
-    	    
-    	    let elements = this.mainElement.querySelectorAll(".gif");
-    	    this.effects.applyEffect(elements, "colorRoll");
+            if(timeout){
+                clearTimeout(timeout);
+            }
+            timeout = setTimeout(()=>{
+                 this.view.optimizeGrid.call(this.view);
+        	    this.view.initGrid.call(this.view, this.images);
+        	    
+        	    let elements = this.mainElement.querySelectorAll(".gif");
+        	    this.effects.applyEffect(elements, "colorRoll");
+        	    
+        	    timeout = null
+        	    
+            }, 200);
+            
+           
             
         }));
     }
