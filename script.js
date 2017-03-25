@@ -19,6 +19,7 @@ class gifVisual{
         this.initControls.call(this, effects);
         this.initImages.call(this, 50);
         this.getImages.call(this);
+        this.initEvents.call(this);
 
         //setInterval(this.switchRandom.bind(this), 3000);
         window.addEventListener("keypress", this.onKey.bind(this));
@@ -35,6 +36,16 @@ class gifVisual{
             let elements = document.querySelectorAll(".gif");
             effects.applyEffect(elements, "zoomRoll")
         });*/
+    }
+    
+    initEvents(){
+        
+        ['orientationchange', 'resize'].forEach(event => window.addEventListener(event, ()=>{
+            
+            this.view.optimizeGrid.call(this.view);
+    	    this.view.initGrid.call(this.view, this.images);
+            
+        }));
     }
 
     getImages(m){
@@ -75,7 +86,6 @@ class gifVisual{
     	}
 
     	this.view.initGrid.call(this.view, this.images);
-        this.effects.applyEffect(elements, "colorRoll");
     }
 
     initImages(num){

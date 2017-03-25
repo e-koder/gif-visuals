@@ -9,8 +9,9 @@ class VisualView {
         this.columns = null;
         this.rows = null;
         this.images = [];
-      	this.squareWidth = 200;
-      	this.squareHeight = 200;
+        this.optimizedSize = 150;
+      	this.squareWidth = null;
+      	this.squareHeight = null;
         this.elements = [];
         this.dom = dom;
 
@@ -29,8 +30,8 @@ class VisualView {
         let physicalWidth = window.innerWidth / devicePixelRatio;
         let physicalHeight = window.innerHeight / devicePixelRatio;
         
-        this.columns = Math.floor(physicalWidth / this.squareWidth);
-        this.rows = Math.floor(physicalHeight / this.squareWidth);
+        this.columns = Math.floor(physicalWidth / this.optimizedSize);
+        this.rows = Math.floor(physicalHeight / this.optimizedSize);
     }
 
     calculateRows(squareWidth) {
