@@ -36,11 +36,11 @@ class gifVisual{
             effects.applyEffect(elements, "zoomRoll")
         });*/
         
-        document.addEventListener("mousedown", e=>{
+        document.addEventListener("touchstart", e=>{
             this.switchBlinker.call(this, true);
         });
         
-        document.addEventListener("mouseup", e=>{
+        document.addEventListener("touchend", e=>{
             this.switchBlinker.call(this, false);
         });
     }
