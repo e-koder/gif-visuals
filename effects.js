@@ -80,7 +80,7 @@ class VisualEffects {
             case effectsDef.colorRoll:
                 time = 60;
                 if(len<10){
-                    time = 400;
+                    time = 600;
                 }else if(len<20){
                     time = 150;
                 }

@@ -8,7 +8,7 @@ class gifVisual{
         this.effects = effects;
         this.hue = 0;
         this.invert = 0;
-        this.blinker = true;
+        this.blinker = null;
         this.allImages = [];
         this.images = [];
         this.imagesNum = 0;
@@ -35,6 +35,14 @@ class gifVisual{
             let elements = document.querySelectorAll(".gif");
             effects.applyEffect(elements, "zoomRoll")
         });*/
+        
+        document.addEventListener("mousedown", e=>{
+            this.switchBlinker.call(this, true);
+        });
+        
+        document.addEventListener("mouseup", e=>{
+            this.switchBlinker.call(this, false);
+        });
     }
     
     initEvents(){
@@ -94,8 +102,9 @@ class gifVisual{
 
 
     switchBlinker(force){
-        if(!force && !this.blinker){
-            this.blinker = setInterval(this.invertColor.bind(this), 100);
+        if(force){
+            this.invertColor.call(this);
+            this.blinker = setInterval(this.invertColor.bind(this), 50);
         }else{
             if(this.blinker)
                 clearInterval(this.blinker);
