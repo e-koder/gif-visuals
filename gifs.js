@@ -4,12 +4,9 @@ const gifObj = [
         list: [
             "1.gif",
             "2.gif",
-            "3.gif",
-            "5.gif",
             "7.gif",
             "9.gif",
             "10.gif",
-            "11.gif",
             "12.gif",
             "13.gif",
             "16.gif",
@@ -23,16 +20,10 @@ const gifObj = [
             "nyan3.gif",
             "super1.gif",
             "super2.gif",
-            "super3.gif",
-            "tdfu1.jpg",
-            "tdfu2.jpg",
-            "tdfu3.jpg",
-            "tdfu1.jpg",
-            "tdfu2.jpg",
-            "tdfu3.jpg"
+            "super3.gif"
         ]
     }, {
-        root: "tdfu/",
+        root: "gifs/tdfu/",
         list: [
             "img0.jpg",
             "img1.jpg",
@@ -40,13 +31,20 @@ const gifObj = [
             "img3.jpg",
             "img4.jpg",
             "img5.jpg",
-            "img6.jpg",
             "img7.jpg",
             "img8.jpg",
-            "img9.jpg",
-            "img10.jpg",
             "img11.jpg",
             "img12.jpg"
+        ]
+    }, {
+        root: "gifs/simple/",
+        list: [
+            "s1.gif",
+            "s2.gif",
+            "s3.gif",
+            "s4.gif",
+            "s5.gif",
+            "s6.gif"
         ]
     }
 ]
