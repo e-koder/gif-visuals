@@ -24,7 +24,6 @@ body {
     margin: 0;
     overflow: visible;
     perspective: 300px;
-    transition: opacity .5s, transform .4s, top .5s, left .5s;
     /*padding: 10px;*/
 
 }

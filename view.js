@@ -6,11 +6,11 @@ class VisualView {
 
     constructor(dom) {
 
-        this.columns = 12;
+        this.columns = null;
         this.rows = null;
         this.images = [];
-      	this.squareWidth = 0;
-      	this.squareHeight = 0;
+      	this.squareWidth = 200;
+      	this.squareHeight = 200;
         this.elements = [];
         this.dom = dom;
 
@@ -22,13 +22,26 @@ class VisualView {
 
     }
     
-    // komentar nepotreben
+    optimizeGrid(){
+        
+        let devicePixelRatio = window.devicePixelRatio || 1;
+        
+        let physicalWidth = window.innerWidth / devicePixelRatio;
+        let physicalHeight = window.innerHeight / devicePixelRatio;
+        
+        this.columns = Math.floor(physicalWidth / this.squareWidth);
+        this.rows = Math.floor(physicalHeight / this.squareWidth);
+    }
 
     calculateRows(squareWidth) {
         return Math.ceil(window.innerHeight / squareWidth);
     }
 
     initGrid(images, columns) {
+        
+        if(!this.columns){
+            this.optimizeGrid.call(this);
+        }
 
         this.images = images ? images : this.images;
         this.columns = columns ? columns : this.columns;
@@ -73,7 +86,8 @@ class VisualView {
             width: width + "px",
             height: height + "px",
           	left: width * x + "px",
-            top: height * y + "px"         
+            top: height * y + "px",    
+            zIndex: x*y
         });
       
       	helpers.applyStyle(inner, {

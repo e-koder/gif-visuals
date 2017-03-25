@@ -1,0 +1,29 @@
+.effect {
+    transition: opacity .5s, transform .4s, top .2s, left .2s, width .2s, height .2s;
+}
+
+.effect-colorRoll {
+    filter: "grayscale(1)";
+    opacity: 0.2;
+}
+
+.effect-colorRoll.active {
+    filter: "grayscale(0)";
+    opacity: 1;
+}
+
+
+.effect-zoomRoll {
+    filter: "grayscale(1)";
+    opacity: 0.2;
+}
+
+.effect-zoomRoll.active {
+    z-index: 1000 !important;
+    filter: "grayscale(0)";
+    opacity: 1;
+    top: 10% !important;
+  	left: 10% !important;
+  	width: 80% !important;
+  	height: 80% !important;
+}

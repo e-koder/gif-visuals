@@ -58,6 +58,13 @@ class VisualEffects {
         this.index++;
 
     }
+    
+    resetClasses(element){
+        element.classList.remove("effect");
+        element.classList.remove("effect-zoomRoll");
+        element.classList.remove("effect-colorRoll");
+        element.classList.remove("active");
+    }
 
     initEffect(elements, type) {
 
@@ -74,6 +81,17 @@ class VisualEffects {
                 time = 2000;
                 break;
         }
+        
+        for(let i=0; i< elements.length; i++){
+            
+            let element = elements[i];
+            this.resetClasses(element);
+            
+            let effectClass = "effect-"+type;
+            element.classList.add("effect", effectClass);
+            
+        }
+        
 
         this.setTiming.call(this, time);
 
@@ -82,21 +100,13 @@ class VisualEffects {
     colorRoll(elements, index) {
 
         for (let i = 0; i < elements.length; i++) {
+            
             let element = elements[i];
 
-            helpers.applyStyle(element, {
-                top: element.dataset.top,
-                left: element.dataset.left,
-                transform: "scale(1)",
-                filter: "grayscale(1)",
-                opacity: 0.2
-            });
-
             if (i > index - elements.length/5 && i < index + elements.length/5 ) {
-                helpers.applyStyle(element, {
-                    filter: "grayscale(0)",
-                    opacity: 1
-                });
+                element.classList.add("active");
+            }else {
+                element.classList.remove("active");
             }
         }
 
@@ -109,23 +119,11 @@ class VisualEffects {
         for (let i = 0; i < elements.length; i++) {
 
             let element = elements[i];
-            element.style.transform = "scale(1)";
-          
-          	element.classList.remove("effect-zoom-max");
-element.classList.remove("effect-zoom-min");
 
             if (i===randomIndex) {
-
-elements.classList.add("effect-zoom-max");
-                helpers.applyStyle(element, {
-                    zIndex: elements.length+1,
-                    filter: "grayscale(0)",
-                    opacity: 1,
-                    top: "10%",
-                  	bottom: "10%",
-                  	left: "20%",
-                  	right: "20%"
-                });
+                element.classList.add("active");
+            }else{
+                element.classList.remove("active");
             }
         }
 
