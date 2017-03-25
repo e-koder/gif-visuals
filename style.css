@@ -1,9 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
 body {
     margin: 0;
     padding: 0;
     overflow: hidden;
     cursor: none !important;
     background: #222;
+    font-family: 'Oswald', sans-serif;
+}
+
+.overlay {
+    position: absolute;
+    z-index: 1000;
+    top: 40%;
+    left: 20%;
+    right: 20%;
+    bottom: 40%;
+    color: white;
+    background: black;
+    transform: rotateZ(2deg);
+}
+
+h1 {
+    padding: 1;
+    position: absolute;
+    left: 120px;
 }
 
 .wrapper-main {

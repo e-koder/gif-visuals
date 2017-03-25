@@ -42,13 +42,12 @@ const gifObj = [
     }, {
         root: "gifs/simple/",
         list: [
-            "s1.jpg",
-            "s2.jpg",
-            "s3.jpg",
-            "s4.jpg",
-            "s5.jpg",
-            "s6.jpg",
-            "s1.jpg"
+            "s1.gif",
+            "s2.gif",
+            "s3.gif",
+            "s4.gif",
+            "s5.gif",
+            "s6.gif"
         ]
     }
 ]

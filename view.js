@@ -5,14 +5,17 @@
 class VisualView {
 
     constructor(dom) {
-
-        this.columns = null;
-        this.rows = null;
-        this.images = [];
-        this.optimizedSize = 150;
-      	this.squareWidth = null;
-      	this.squareHeight = null;
-        this.elements = [];
+        
+        this.settings = {
+            columns: null,
+            rows: null,
+            images:[],
+            optimizedSize: 200,
+            squareHeight: null,
+            squareWidth: null,
+            elements: []
+        }
+        
         this.dom = dom;
 
     }
@@ -30,59 +33,101 @@ class VisualView {
         let physicalWidth = window.innerWidth / devicePixelRatio;
         let physicalHeight = window.innerHeight / devicePixelRatio;
         
-        this.columns = Math.floor(physicalWidth / this.optimizedSize);
-        this.rows = Math.floor(physicalHeight / this.optimizedSize);
+        let settings = this.settings;
+        settings.columns = Math.floor(physicalWidth / settings.optimizedSize);
+        settings.rows = Math.floor(physicalHeight / settings.optimizedSize);
     }
 
     calculateRows(squareWidth) {
         return Math.ceil(window.innerHeight / squareWidth);
     }
-
-    initGrid(images, columns) {
+    
+    updateGrid(columns, rows){
         
-        if(!this.columns){
+        let dom = this.dom;
+        let elements = this.settings.elements;
+        let newLen = columns * rows;
+        let updated = elements.length == newLen ? false : true;
+
+        while(elements.length > newLen){
+            elements.pop();
+            this.removeELement.call(this, dom.lastChild);
+        }
+        
+        while(elements.length < newLen){
+            elements.push(this.addElement.call(this));
+        }
+        
+        this.settings.elements = elements;
+        return updated;
+        
+    }
+
+    initGrid(images, c, r) {
+        
+        let settings = this.settings;
+        
+        if(!c){
             this.optimizeGrid.call(this);
         }
 
-        this.images = images ? images : this.images;
-        this.columns = columns ? columns : this.columns;
-		this.squareWidth = window.innerWidth / this.columns;
-      	this.rows = this.calculateRows(this.squareWidth);
-      	this.squareHeight = window.innerHeight / this.rows;      
-        
-        this.dom.innerHTML = "";
-      
-        let elements = this.elements;
-        let totalElements = this.columns * this.rows;
-        let totalImages = this.images.length;
+        images = images ? images : settings.images;
+        let columns = c ? c : settings.columns;
+		let squareWidth = window.innerWidth / columns;
+      	let rows = r ? r : (c ? this.calculateRows(squareWidth) : settings.rows);
+      	let squareHeight = window.innerHeight / rows; 
+      	
+      	let updated = this.updateGrid.call(this, columns, rows);
+    	let elements = settings.elements;
         let currentIndex = 0;
         
-        for (let y = 0; y < this.rows; y++) {
-            for (let x = 0; x < this.columns; x++) {
+        for(let i=0; i<elements.length; i++){
+            
+            let x = i%columns;
+            let y = Math.floor(i/columns);
+            
+            let url = images[currentIndex];
+            this.initElement.call(this, elements[i], url, squareWidth, squareHeight, x, y);
 
-                let image = this.images[currentIndex];
-                elements.push(image);
-                this.addElement.call(this, image, this.squareWidth, this.squareHeight, x, y);
-
-                currentIndex++;
-                if (currentIndex == totalImages) {
-                    currentIndex = 0;
-                }
+            currentIndex++;
+            if (currentIndex == images.length) {
+                currentIndex = 0;
             }
-
+        }
+        
+        this.settings = {
+            images,
+            columns,
+            squareWidth,
+            squareHeight,
+            elements,
+            optimizedSize: settings.optimizedSize
+        };
+        
+        if(updated){
+            if(this.onUpdate){
+                this.onUpdate(settings)
+            }
         }
     }
-
+    
+    
     addElement(image, width, height, x, y) {
 
-        let columns = this.columns;
-        let rows = this.rows;
         let element = document.createElement("div");
         let inner = document.createElement("div");
 
         element.className = "gif";
       	inner.className = "inner-div";
-
+      	element.appendChild(inner);
+        return this.dom.appendChild(element);
+    }
+    
+    
+    initElement(element, image, width, height, x, y){
+        
+        let inner = element.querySelector(".inner-div");
+      
         helpers.applyStyle(element, {
             width: width + "px",
             height: height + "px",
@@ -90,18 +135,20 @@ class VisualView {
             top: height * y + "px",    
             zIndex: x*y
         });
-      
-      	helpers.applyStyle(inner, {
+        
+        helpers.applyStyle(inner, {
           	backgroundImage: "url(" + image + ")"
         });
-      
-        element.appendChild(inner);
-        this.dom.appendChild(element)
-
-        helpers.saveProps(element, {
-            top: height * y + "px",
-            left: width * x + "px"
-        });
+        
+       
+        
+    }
+    
+    
+    removeELement(element){
+        
+        element.parentNode.removeChild(element);
+        
     }
 
     flipImage(element, url) {
