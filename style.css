@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Oswald');
-
-body {
+body, html {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -10,7 +14,8 @@ body {
 }
 
 .wrapper-main {
-    filter: blur(3px);
+    opacity: .8;
+    filter: blur(2px);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -29,13 +34,12 @@ body {
     overflow: visible;
     perspective: 300px;
     /*padding: 10px;*/
-
 }
 
 .gif .inner-div {
     box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.5);
     background-size: 100% 100%;
-  	background-size: cover;
+    background-size: cover;
     background-position: center;
     height: 98%;
     width: 98%;
@@ -44,7 +48,6 @@ body {
     /*border: 5px solid #000000;
     border-bottom: 0;*/
 }
-
 
 .overlay {
     position: absolute;
@@ -57,30 +60,38 @@ body {
 }
 
 .header {
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   width: 60%;
-   max-width: 400px;
-   transform: translate(-50%, -50%);
-   display: flex;
-   flex-direction: column;
-   align-items: center;
+     cursor: pointer !important;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 70%;
+    max-width: 900px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header:hover {
+    filter: invert(1);
+}
+
+.header.hidden {
+    opacity: 0;
 }
 
 .header .title {
     text-align: center;
-    padding: 10px 20px;
+    padding: 2% 10%;
+    margin: auto;
     transform: rotateZ(1deg);
     background: #111111;
-    font-size: 3em;
+    font-size: 3.5em;
     z-index: 1;
 }
 
 .header .date {
-
     margin: auto;
-    margin-left: 30px;
     margin-bottom:-17px;
     display: inline-block;
     padding: 0px 20px 20px 20px;
@@ -93,10 +104,35 @@ body {
 }
 
 .header .info {
-     margin: auto;
-     padding: 20px 10px 2px 10px;
-     margin-top:-18px;
+    display: flex;
+    margin: auto;
+    padding: 20px 10px 2px 10px;
+    margin-top:-18px;
     background: white;
     color: black;
+    max-width: 80%;
+    flex-wrap: wrap;
+    font-size: 1em;
+    letter-spacing: 1px;
+    justify-content: center;
 }
 
+.header .info span {
+    padding: 0 8px;
+    text-align: center;
+}
+
+
+@media (min-width: 1024px){
+    body{
+        font-size: 140% !important;
+    }
+    
+}
+
+@media (min-width: 1800px){
+    body{
+        font-size: 180% !important;
+    }
+    
+}

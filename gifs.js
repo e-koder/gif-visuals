@@ -4,12 +4,9 @@ const gifObj = [
         list: [
             "1.gif",
             "2.gif",
-            "3.gif",
-            "5.gif",
             "7.gif",
             "9.gif",
             "10.gif",
-            "11.gif",
             "12.gif",
             "13.gif",
             "16.gif",

@@ -1,19 +1,19 @@
 .effect {
-    transition: opacity .4s, transform .4s, top .2s, left .2s, width .2s, height .2s;
+    transition: opacity .3s, filter .4s, transform .4s, top .2s, left .2s, width .2s, height .2s;
 }
 
 .colorEffect {
-    filter: "grayscale(1)";
-    opacity: 0.1;
+    filter: grayscale(1);
+    opacity: .2;
 }
 
 .colorEffect.active {
-    filter: "grayscale(0)";
+    filter: grayscale(0);
     opacity: 1;
 }
 
 .zoomEffect {
-    filter: "grayscale(1)";
+    filter: blur(1);
     opacity: 0.2;
 }
 

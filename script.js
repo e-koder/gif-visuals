@@ -17,11 +17,17 @@ class gifVisual {
         this.images = [];
         this.visual = window;
         this.firstIndex = 0;
+        
+        this.index = 0;
 
         this.mainElement = this.visual.document.querySelector(".wrapper-main");
         this.initControls.call(this, effects);
         this.initEvents.call(this, view);
-        this.getImages.call(this, 2);
+        this.getImages.call(this);
+        
+        setInterval(()=>{
+            this.changeColor.call(this)
+        },2000);
 
         //setInterval(this.switchRandom.bind(this), 3000);
         window.addEventListener("keypress", this.onKey.bind(this));
@@ -39,13 +45,17 @@ class gifVisual {
             effects.applyEffect(elements, "zoomRoll")
         });*/
 
-        document.addEventListener("touchstart", e => {
+
+        document.querySelector("#header").addEventListener("click",e => {
+            this.switchBlinker.call(this);
+        })
+        /*document.addEventListener("touchstart", e => {
             this.switchBlinker.call(this, true);
         });
 
         document.addEventListener("touchend", e => {
             this.switchBlinker.call(this, false);
-        });
+        });*/
     }
 
     initEvents(view) {
@@ -74,6 +84,18 @@ class gifVisual {
     }
 
     getImages(index) {
+        
+        
+        index = index ? index : Math.floor(Math.random()*gifObj.length);
+        
+        if(this.index == index){
+            this.index++;
+            if(this.index == gifObj.length){
+                this.index = 0;
+            }
+        }else {
+            this.index = index;
+        }
 
         let gifs = gifObj[index].list;
         let gifsRoot = gifObj[index].root;
@@ -101,12 +123,12 @@ class gifVisual {
         else if (force) {
             clearInterval(this.blinker);
             this.invertColor.call(this);
-            this.blinker = setInterval(this.invertColor.bind(this), 150);
+            this.blinker = setInterval(this.invertColor.bind(this), 100);
         } 
     }
 
     changeColor() {
-        this.hue += 80;
+        this.hue += 60;
         this.setStyle.call(this);
     }
 
@@ -117,7 +139,7 @@ class gifVisual {
 
     setStyle() {
 
-        var filter = "";
+        var filter = "blur(2px)";
         filter += "hue-rotate(" + this.hue + "deg)";
         filter += "invert(" + this.invert * 100 + "%)";
 
@@ -149,9 +171,12 @@ class gifVisual {
             case "t":
                 this.effects.applyEffect("flipEffect");
                 break;
-            case " ":
-                console.log()
+            case "a":
+                this.getImages.call(this);
                 break;
+            case "s":
+                let header = document.querySelector("#header");
+                header.classList.toggle("hidden");
             default:
                 break;
         }
