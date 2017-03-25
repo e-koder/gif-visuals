@@ -1,10 +1,10 @@
 .effect {
-    transition: opacity .5s, transform .4s, top .2s, left .2s, width .2s, height .2s;
+    transition: opacity .4s, transform .4s, top .2s, left .2s, width .2s, height .2s;
 }
 
 .effect-colorRoll {
     filter: "grayscale(1)";
-    opacity: 0.2;
+    opacity: 0.1;
 }
 
 .effect-colorRoll.active {

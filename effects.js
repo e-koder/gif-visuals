@@ -43,6 +43,7 @@ class VisualEffects {
 
         for (let i = 0; i < effects.length; i++) {
             let type = effects[i];
+            
             switch (type){
                 case effectsDef.colorRoll:
                     this.colorRoll(elements, index);
@@ -71,11 +72,18 @@ class VisualEffects {
         this.elements = elements;
         this.effects = [type];
 
+
+        let len = elements.length;
         let time = 100;
 
         switch (type){
             case effectsDef.colorRoll:
                 time = 60;
+                if(len<10){
+                    time = 400;
+                }else if(len<20){
+                    time = 150;
+                }
                 break;
             case effectsDef.zoomRoll:
                 time = 2000;
@@ -98,12 +106,20 @@ class VisualEffects {
     }
 
     colorRoll(elements, index) {
+        
+         let len = elements.length;
 
-        for (let i = 0; i < elements.length; i++) {
+        for (let i = 0; i < len; i++) {
             
             let element = elements[i];
+            let range = Math.floor(len/5);
+           
+           let nextIndex = index + range;
+           let prevIndex = index - range;
 
-            if (i > index - elements.length/5 && i < index + elements.length/5 ) {
+            if ((i >= prevIndex && i <= nextIndex) || 
+                (nextIndex >= len && i <= nextIndex - len) || 
+                (prevIndex < 0 && i>= len + prevIndex) ) {
                 element.classList.add("active");
             }else {
                 element.classList.remove("active");

@@ -17,7 +17,6 @@ class gifVisual{
 
         this.mainElement = this.visual.document.querySelector(".wrapper-main");
         this.initControls.call(this, effects);
-        this.initImages.call(this, 50);
         this.getImages.call(this);
         this.initEvents.call(this);
 
@@ -44,6 +43,9 @@ class gifVisual{
             
             this.view.optimizeGrid.call(this.view);
     	    this.view.initGrid.call(this.view, this.images);
+    	    
+    	    let elements = this.mainElement.querySelectorAll(".gif");
+    	    this.effects.applyEffect(elements, "colorRoll");
             
         }));
     }
@@ -77,7 +79,6 @@ class gifVisual{
 
     	combinations = combinations ? combinations : Math.ceil(Math.random()*5);
     	this.images = [];
-    	let elements = this.mainElement.querySelectorAll(".gif");
     	let j=0;
 
     	for(var i=0; i<combinations; i++){
@@ -86,20 +87,11 @@ class gifVisual{
     	}
 
     	this.view.initGrid.call(this.view, this.images);
+    	let elements = this.mainElement.querySelectorAll(".gif");
+	    this.effects.applyEffect(elements, "colorRoll");
+    	
     }
 
-    initImages(num){
-
-        for (var i=0; i<num; i++){
-            var element = document.createElement("div");
-            element.className = "gif";
-            var img = document.createElement("img");
-            element.className+=" shake-constant";
-            element.appendChild(img);
-            img.dataset.rotation = [0,0,0];
-            this.mainElement.appendChild(element);
-        }
-    }
 
     switchBlinker(force){
         if(!force && !this.blinker){
