@@ -1,6 +1,7 @@
 "use strict";
 
-const effectsDef = {
+const effectsDef =
+    invertEffect:"invertEffect",
     colorEffect: "colorEffect",
     zoomEffect: "zoomEffect",
     moveEffect: "moveEffect",
