@@ -1,10 +1,12 @@
 "use strict";
 
-const effectsDef = {
+const effectsDef =
+    invertEffect:"invertEffect",
     colorEffect: "colorEffect",
     zoomEffect: "zoomEffect",
     moveEffect: "moveEffect",
-    flipEffect: "flipEffect"
+    flipEffect: "flipEffect",
+    drugEffect: "drugEffect"
 };
 
 class VisualEffects {
