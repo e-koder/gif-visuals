@@ -5,7 +5,8 @@ const effectsDef =
     colorEffect: "colorEffect",
     zoomEffect: "zoomEffect",
     moveEffect: "moveEffect",
-    flipEffect: "flipEffect"
+    flipEffect: "flipEffect",
+    drugEffect: "drugEffect"
 };
 
 class VisualEffects {
