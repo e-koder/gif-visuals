@@ -139,7 +139,7 @@ class gifVisual {
 
     setStyle() {
 
-        var filter = "blur(2px)";
+        var filter = "";
         filter += "hue-rotate(" + this.hue + "deg)";
         filter += "invert(" + this.invert * 100 + "%)";
 
