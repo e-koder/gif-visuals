@@ -11,7 +11,7 @@ class VisualEffects {
 
 
     constructor() {
-        this.effects = [];
+        this.selectedEventIndex = null;
         this.elements = [];
         this.frame = 0;
         this.interval = null;

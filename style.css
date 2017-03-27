@@ -4,7 +4,6 @@ body, html {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -15,7 +14,6 @@ body, html {
 
 .wrapper-main {
     opacity: .8;
-    filter: blur(2px);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

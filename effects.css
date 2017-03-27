@@ -19,7 +19,7 @@
 
 .zoomEffect.active {
     z-index: 1000 !important;
-    filter: "grayscale(0)";
+    filter: grayscale(0);
     opacity: 1;
     top: 10% !important;
     left: 20% !important;
