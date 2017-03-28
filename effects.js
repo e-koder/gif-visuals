@@ -1,37 +1,45 @@
 "use strict";
 
-const effectsDef =
-    invertEffect:"invertEffect",
-    colorEffect: "colorEffect",
-    zoomEffect: "zoomEffect",
-    moveEffect: "moveEffect",
-    flipEffect: "flipEffect",
-    drugEffect: "drugEffect"
-};
+const effectsDef = [
+    { type: "greyEffect", time: 120},
+    { type: "colorEffect", time: 120},
+    { type: "invertEffect", time: 300},
+    { type: "zoomEffect", time: 1600},
+    { type: "shakeEffect", time: 300},
+    { type: "flipEffect", time: 300}
+];
 
 class VisualEffects {
 
 
     constructor() {
-        this.selectedEventIndex = null;
+        this.effectIndex = 0;
+        this.effect = effectsDef[this.effectIndex];
         this.elements = [];
         this.frame = 0;
         this.interval = null;
         this.settings = null;
 
-        const defaultEffect = effectsDef.colorEffect;
-
-        this.applyEffect = (type) => {
-            this.initEffect.call(this, type);
+        this.applyEffect = (index) => {
+            if(effectsDef[index]){
+                this.effectIndex = index;
+                this.initEffect.call(this, effectsDef[index]);
+            }
         };
 
         this.updateElements = (settings) => {
 
             this.elements = settings.elements;
             this.settings = settings;
-            this.initEffect.call(this, defaultEffect);
+            this.initEffect.call(this);
             this.frame = 0;
-        }
+        };
+
+        this.nextEffect = () => {
+            let index = this.effectIndex+1;
+            index = index >= effectsDef.length ? 0 : index;
+            this.applyEffect.call(this, index);
+        };
 
     }
 
@@ -48,44 +56,87 @@ class VisualEffects {
         }, ms);
     }
     
-     initEffect(type) {
+     initEffect(effect) {
+
+        effect = effect ? effect : this.effect;
+        this.effect = effect;
 
         let elements = this.elements;
-        this.effects = [type];
-
-
-        let len = elements.length;
-        let time = 150;
-
-        switch (type) {
-            case effectsDef.colorEffect:
-                time = 130;
-                if (len < 20) {
-                    time = 150;
-                }
-                break;
-            case effectsDef.zoomEffect:
-                time = 1600;
-                break;
-            case effectsDef.moveEffect:
-                time = 1300;
-                break;
-            case effectsDef.flipEffect:
-                time = 500;
-                break;
-        }
 
         for (let i = 0; i < elements.length; i++) {
 
             let element = elements[i];
             this.resetClasses(element);
-
-            element.classList.add("effect", type);
+            element.classList.add("effect", effect.type);
 
         }
 
+        this.setTiming.call(this, effect.time);
 
-        this.setTiming.call(this, time);
+    }
+
+    resetEffectModes(element){
+        element.classList.remove("active", "range", "even", "odd", "row", "col", "above", "bellow")
+    }
+
+    renderEffect(frame){
+
+        frame = frame ? frame : this.frame;
+        let elements = this.elements;
+        let settings = this.settings;
+        let len = elements.length;
+        let rows = settings.rows;
+        let cols = settings.cols;
+        let range = Math.floor(len / 5);
+
+        let i=0;
+
+        let row = frame % settings.rows;
+        let col = frame % settings.cols;
+
+        for(let x=0; x<rows; x++){
+            for(let y=0;y<cols; y++){
+
+                let element = elements[i];
+                let lastFrame = frame + range;
+                let prevFrame = frame - range;
+
+                this.resetEffectModes(element);
+
+
+                if((frame+i)%2==0){
+                    element.classList.add("even");
+                }else{
+                    element.classList.add("odd");
+                }
+
+                if(i<=len/2){
+                    element.classList.add("above");
+                }else {
+                    element.classList.add("bellow");
+                }
+
+                if ((i >= prevFrame && i <= lastFrame) ||
+                    (lastFrame >= len && i <= lastFrame - len) ||
+                    (prevFrame < 0 && i >= len + prevFrame)) {
+                    element.classList.add("range");
+                }
+
+                if(col == y){
+                    element.classList.add("col");
+                }
+
+                if(row == x){
+                    element.classList.add("row");
+                }
+
+                if(i == frame){
+                    element.classList.add("active");
+                }
+
+                i++
+            }
+        }
 
     }
 
@@ -93,29 +144,8 @@ class VisualEffects {
 
         let frame = this.frame;
         let elements = this.elements;
-        let effects = this.effects;
 
-        for (let i = 0; i < effects.length; i++) {
-            let type = effects[i];
-
-            switch (type) {
-                case effectsDef.colorEffect:
-                    this.colorEffect(elements, frame);
-                    break;
-                case effectsDef.zoomEffect:
-                    this.zoomEffect(elements, frame);
-                    break;
-                case effectsDef.moveEffect:
-                    this.moveEffect(elements, frame);
-                    break;
-                case effectsDef.flipEffect:
-                    this.flipEffect(elements, frame);
-                    break;
-                default:
-                    break;
-            }
-        }
-
+        this.renderEffect(frame);
         this.frame++;
         if (this.frame >= elements.length) {
             this.frame = 0;
@@ -125,85 +155,11 @@ class VisualEffects {
 
     resetClasses(element) {
         element.classList.remove("effect");
-        element.classList.remove("zoomEffect");
-        element.classList.remove("colorEffect");
-        element.classList.remove("moveEffect");
-        element.classList.remove("active");
-    }
-
-
-    colorEffect(elements, frame) {
-
-        let len = elements.length;
-
-        for (let i = 0; i < len; i++) {
-
-            let element = elements[i];
-            let range = Math.floor(len / 5);
-
-            let lastFrame = frame + range;
-            let prevFrame = frame - range;
-
-            if ((i >= prevFrame && i <= lastFrame) ||
-                (lastFrame >= len && i <= lastFrame - len) ||
-                (prevFrame < 0 && i >= len + prevFrame)) {
-                element.classList.add("active");
-            }
-            else {
-                element.classList.remove("active");
-            }
+        for(let i=0; i<effectsDef.length; i++){
+            element.classList.remove(effectsDef[i].type);
         }
-
     }
 
-    zoomEffect(elements, frame) {
 
-        for (let i = 0; i < elements.length; i++) {
-
-            let element = elements[i];
-
-            if (i === frame) {
-                element.classList.add("active");
-            }
-            else {
-                element.classList.remove("active");
-            }
-        }
-
-    }
-
-    moveEffect(elements, frame) {
-
-        let settings = this.settings;
-
-        for (let i = 0; i < elements.length; i++) {
-
-            let element = elements[i];
-            let currentRow = Math.floor(i / settings.columns);
-
-            if (currentRow % 2 == frame % 2) {
-                element.classList.add("active");
-            }
-            else {
-                element.classList.remove("active");
-            }
-        }
-
-    }
-
-    flipEffect(elements, frame) {
-
-        let settings = this.settings;
-
-        for (let i = 0; i < elements.length; i++) {
-
-            let element = elements[i];
-            let currentRow = Math.floor(i / settings.columns);
-            element.classList.remove("active");
-        }
-        
-        elements[frame].classList.add("active");
-
-    }
 
 }

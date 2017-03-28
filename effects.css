@@ -2,14 +2,32 @@
     transition: opacity .3s, filter .4s, transform .4s, top .2s, left .2s, width .2s, height .2s;
 }
 
-.colorEffect {
-    filter: grayscale(1);
-    opacity: .2;
+.greyEffect {
+    filter: grayscale(1) blur(3px);
 }
 
-.colorEffect.active {
-    filter: grayscale(0);
+.greyEffect.range {
+    filter: grayscale(.5) blur(3px);
+}
+
+.colorEffect {
+    filter: grayscale(1);
+    opacity: .1;
+    transition: opacity .4s, filter .2s;
+}
+
+.colorEffect.range {
+    filter: grayscale(0) saturate(150%);
     opacity: 1;
+}
+
+.invertEffect {
+    filter: invert(0);
+    transition: filter .1s;
+}
+
+.invertEffect.odd {
+    filter: invert(1) contrast(120%) saturate(200%) hue-rotate(-90deg);
 }
 
 .zoomEffect {
@@ -19,28 +37,48 @@
 
 .zoomEffect.active {
     z-index: 1000 !important;
-    filter: grayscale(0);
+    filter: grayscale(0) blur(2px);
     opacity: 1;
-    top: 10% !important;
-    left: 20% !important;
-    width: 60% !important;
-    height: 80% !important;
+    top: 2% !important;
+    left: 2% !important;
+    width: 96% !important;
+    height: 96% !important;
+
 }
 
-.moveEffect {
-    transition: transform .5s;
-    transform: translateX(-20%);
+.shakeEffect {
+    transition: transform .2s;
+    transform: translateX(0%) translateY(0%) scale(0.95);
+
 }
 
-.moveEffect.active {
-    transform: translateX(0);
+.shakeEffect.even {
+    transform: translateX(1%) translateY(1%);
 }
+
+
+.shakeEffect.range {
+    transform: translateX(-2%) translateY(2%);
+
+}
+
+.shakeEffect.active {
+    transform: scale(1.2);
+    opacity: 1;
+    z-index: 1000 !important;
+}
+
 
 .flipEffect {
-    transition: transform .8s;
+    transition: transform 1s;
     transform: rotateX(0deg);
 }
 
-.flipEffect.active {
-    transform: rotateX(90deg);
+
+.flipEffect.row {
+    transition: transform 0s;
+    transform: rotateX(360deg);
 }
+
+
+
