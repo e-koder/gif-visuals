@@ -10,9 +10,6 @@ class gifVisual {
 
         this.view = view;
         this.effects = effects;
-        this.hue = 0;
-        this.invert = 0;
-        this.blinker = null;
         this.allImages = [];
         this.images = [];
         this.visual = window;
@@ -24,10 +21,6 @@ class gifVisual {
         this.initControls.call(this, effects);
         this.initEvents.call(this, view);
         this.getImages.call(this);
-        
-        setInterval(()=>{
-            this.changeColor.call(this)
-        },2000);
 
         //setInterval(this.switchRandom.bind(this), 3000);
         window.addEventListener("keypress", this.onKey.bind(this));
@@ -47,7 +40,8 @@ class gifVisual {
 
 
         document.querySelector("#header").addEventListener("click",e => {
-            this.switchBlinker.call(this);
+            //this.switchBlinker.call(this);
+            this.effects.nextEffect();
         })
         /*document.addEventListener("touchstart", e => {
             this.switchBlinker.call(this, true);
@@ -109,43 +103,6 @@ class gifVisual {
         this.view.initGrid.call(this.view, this.images);
     }
 
-
-    switchBlinker(force) {
-
-        force = force == null ? true : force;
-
-        if (this.blinker) {
-            clearInterval(this.blinker);
-            this.blinker = false;
-            this.invert = 0;
-            this.setStyle.call(this);
-        }
-        else if (force) {
-            clearInterval(this.blinker);
-            this.invertColor.call(this);
-            this.blinker = setInterval(this.invertColor.bind(this), 100);
-        } 
-    }
-
-    changeColor() {
-        this.hue += 60;
-        this.setStyle.call(this);
-    }
-
-    invertColor() {
-        this.invert = this.invert == 0 ? 1 : 0;
-        this.setStyle.call(this);
-    }
-
-    setStyle() {
-
-        var filter = "";
-        filter += "hue-rotate(" + this.hue + "deg)";
-        filter += "invert(" + this.invert * 100 + "%)";
-
-        this.mainElement.style.filter = filter;
-    }
-
     onKey(e) {
         var key = e.key;
         if (key > 0) {
@@ -157,19 +114,19 @@ class gifVisual {
 
         switch (key) {
             case "q":
-                this.switchBlinker.call(this);
+                this.effects.applyEffect(0);
                 break;
             case "w":
-                this.effects.applyEffect("colorEffect");
+                this.effects.applyEffect(1);
                 break;
             case "e":
-                this.effects.applyEffect("zoomEffect");
+                this.effects.applyEffect(2);
                 break;
             case "r":
-                this.effects.applyEffect("moveEffect");
+                this.effects.applyEffect(3);
                 break;
             case "t":
-                this.effects.applyEffect("flipEffect");
+                this.effects.applyEffect(4);
                 break;
             case "a":
                 this.getImages.call(this);

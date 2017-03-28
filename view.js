@@ -7,7 +7,7 @@ class VisualView {
     constructor(dom) {
         
         this.settings = {
-            columns: null,
+            cols: null,
             rows: null,
             images:[],
             optimizedSize: 200,
@@ -34,7 +34,7 @@ class VisualView {
         let physicalHeight = window.innerHeight * devicePixelRatio;
         
         let settings = this.settings;
-        settings.columns = Math.floor(physicalWidth / settings.optimizedSize);
+        settings.cols = Math.floor(physicalWidth / settings.optimizedSize);
         settings.rows = Math.floor(physicalHeight / settings.optimizedSize);
     }
 
@@ -42,11 +42,11 @@ class VisualView {
         return Math.ceil(window.innerHeight / squareWidth);
     }
     
-    updateGrid(columns, rows){
+    updateGrid(cols, rows){
         
         let dom = this.dom;
         let elements = this.settings.elements;
-        let newLen = columns * rows;
+        let newLen = cols * rows;
         let updated = elements.length == newLen ? false : true;
 
         while(elements.length > newLen){
@@ -72,19 +72,19 @@ class VisualView {
         }
 
         images = images ? images : settings.images;
-        let columns = c ? c : settings.columns;
-		let squareWidth = window.innerWidth / columns;
+        let cols = c ? c : settings.cols;
+		let squareWidth = window.innerWidth / cols;
       	let rows = r ? r : (c ? this.calculateRows(squareWidth) : settings.rows);
       	let squareHeight = window.innerHeight / rows; 
       	
-      	let updated = this.updateGrid.call(this, columns, rows);
+      	let updated = this.updateGrid.call(this, cols, rows);
     	let elements = settings.elements;
         let currentIndex = 0;
         
         for(let i=0; i<elements.length; i++){
             
-            let x = i%columns;
-            let y = Math.floor(i/columns);
+            let x = i%cols;
+            let y = Math.floor(i/cols);
             
             let url = images[currentIndex];
             this.initElement.call(this, elements[i], url, squareWidth, squareHeight, x, y);
@@ -97,7 +97,7 @@ class VisualView {
         
         this.settings = {
             images,
-            columns,
+            cols,
             squareWidth,
             squareHeight,
             elements,
