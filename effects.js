@@ -1,12 +1,20 @@
 "use strict";
 
-const effectsDef = [
+/*const effectsDef = [
     { type: "greyEffect", time: 120},
     { type: "colorEffect", time: 120},
     { type: "invertEffect", time: 300},
     { type: "zoomEffect", time: 1600},
     { type: "shakeEffect", time: 300},
     { type: "flipEffect", time: 300}
+];*/
+
+const effectsDef = [
+    { type: "colorEffect", time: 120},
+    { type: "flipEffect", time: 300},
+    { type: "invertEffect", time: 300},
+    { type: "swipeEffect", time: 2000},
+    { type: "shakeEffect", time: 500}
 ];
 
 class VisualEffects {
@@ -76,7 +84,7 @@ class VisualEffects {
     }
 
     resetEffectModes(element){
-        element.classList.remove("active", "range", "even", "odd", "row", "col", "above", "bellow")
+        element.classList.remove("active", "previous", "range", "even", "odd", "row", "col", "above", "bellow")
     }
 
     renderEffect(frame){
@@ -94,6 +102,8 @@ class VisualEffects {
         let row = frame % settings.rows;
         let col = frame % settings.cols;
 
+        let effectType = this.effect.type;
+
         for(let x=0; x<rows; x++){
             for(let y=0;y<cols; y++){
 
@@ -101,38 +111,48 @@ class VisualEffects {
                 let lastFrame = frame + range;
                 let prevFrame = frame - range;
 
-                this.resetEffectModes(element);
+                let gifWithEffects = "gif "+effectType;
+
+                //this.resetEffectModes(element);
 
 
                 if((frame+i)%2==0){
-                    element.classList.add("even");
+                    gifWithEffects+=" even";
                 }else{
-                    element.classList.add("odd");
+                    gifWithEffects+=" odd";
                 }
 
                 if(i<=len/2){
-                    element.classList.add("above");
+                    gifWithEffects+=" above";
                 }else {
-                    element.classList.add("bellow");
+                    gifWithEffects+=" bellow";
                 }
 
                 if ((i >= prevFrame && i <= lastFrame) ||
                     (lastFrame >= len && i <= lastFrame - len) ||
                     (prevFrame < 0 && i >= len + prevFrame)) {
-                    element.classList.add("range");
+                    gifWithEffects+=" range";
                 }
 
                 if(col == y){
-                    element.classList.add("col");
+                    gifWithEffects+=" col";
                 }
 
                 if(row == x){
-                    element.classList.add("row");
+                    gifWithEffects+=" row";
+                }
+
+                if(i == frame-1 || (frame==0 && i==len-1)){
+                    gifWithEffects+=" prev";
+                }else if(i == frame+1 || (frame==len-1 && i==0)){
+                    gifWithEffects+=" next";
                 }
 
                 if(i == frame){
-                    element.classList.add("active");
+                    gifWithEffects+=" active";
                 }
+
+                element.className = gifWithEffects;
 
                 i++
             }

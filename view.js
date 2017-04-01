@@ -98,6 +98,7 @@ class VisualView {
         this.settings = {
             images,
             cols,
+            rows,
             squareWidth,
             squareHeight,
             elements,
@@ -106,7 +107,7 @@ class VisualView {
         
         if(updated){
             if(this.onUpdate){
-                this.onUpdate(settings)
+                this.onUpdate(this.settings)
             }
         }
     }
