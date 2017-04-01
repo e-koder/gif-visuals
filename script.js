@@ -41,7 +41,9 @@ class gifVisual {
 
         document.querySelector("#header").addEventListener("click",e => {
             //this.switchBlinker.call(this);
+
             this.effects.nextEffect();
+
         })
         /*document.addEventListener("touchstart", e => {
             this.switchBlinker.call(this, true);
