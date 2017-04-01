@@ -102,6 +102,7 @@ body, html {
 }
 
 .header .info {
+    line-height: 1.8em;
     display: flex;
     margin: auto;
     padding: 20px 10px 4px 10px;
@@ -119,6 +120,26 @@ body, html {
 .header .info span {
     padding: 0 8px;
     text-align: center;
+}
+
+.social {
+    display: flex;
+    left: 0;
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.icon {
+    width: auto;
+    margin: 10px;
+    max-width: 50px;
+}
+
+.icon img {
+    width: 100%;
+    height: auto;
 }
 
 

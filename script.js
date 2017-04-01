@@ -14,6 +14,7 @@ class gifVisual {
         this.images = [];
         this.visual = window;
         this.firstIndex = 0;
+        this.word = "TRAP";
         
         this.index = 0;
 
@@ -24,6 +25,24 @@ class gifVisual {
 
         //setInterval(this.switchRandom.bind(this), 3000);
         window.addEventListener("keypress", this.onKey.bind(this));
+
+        this.clickEffect = setInterval(()=>{
+            this.changeTitle();
+        }, 500);
+    }
+
+    changeTitle(word){
+        let title = document.querySelector("#header-title");
+        if(this.word=="TRAP"){
+            this.word = "CLICK";
+        }else {
+            this.word = "TRAP";
+        }
+        if(word){
+            this.word = word;
+        }
+        title.innerHTML = this.word+" DA FUCK UP"
+
     }
 
     initControls(effects) {
@@ -43,6 +62,9 @@ class gifVisual {
             //this.switchBlinker.call(this);
 
             this.effects.nextEffect();
+            let effect = this.effects.effect;
+            clearInterval(this.clickEffect);
+            this.changeTitle(effect.desc);
 
         })
         /*document.addEventListener("touchstart", e => {
@@ -100,6 +122,7 @@ class gifVisual {
 
         for (var i = 0; i < gifs.length; i++) {
             this.images.push(gifsRoot + gifs[i]);
+            helpers.shuffle(this.images);
         }
 
         this.view.initGrid.call(this.view, this.images);
