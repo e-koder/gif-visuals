@@ -10,10 +10,10 @@
 ];*/
 
 const effectsDef = [
-    { type: "colorEffect", time: 120, desc: "PARTY"},
-    { type: "flipEffect", time: 300, desc: "FLIP"},
+    { type: "colorEffect", time: 300, desc: "PARTY"},
+    { type: "flipEffect", time: 400, desc: "FLIP"},
     { type: "swipeEffect", time: 2000, desc: "MEME"},
-    { type: "invertEffect", time: 300, desc: "FLASH"},
+    { type: "invertEffect", time: 400, desc: "FLASH"},
     { type: "shakeEffect", time: 500, desc: "FEEL"}
 ];
 
