@@ -66,13 +66,13 @@
 }
 
 .swipeEffect.prev {
-    transition: transform .2s;
+    transition: transform 1s;
     transform: translateX(100%);
     z-index: 1000;
 }
 
 .swipeEffect.active {
-    transition: transform .2s;
+    transition: transform 1s;
     z-index: 500;
     transform: translateX(0%);
 }
