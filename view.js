@@ -36,6 +36,19 @@ class VisualView {
         let settings = this.settings;
         settings.cols = Math.floor(physicalWidth / settings.optimizedSize);
         settings.rows = Math.floor(physicalHeight / settings.optimizedSize);
+
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            let divideBy = 1;
+
+            if(settings.cols > 4 && settings.rows < settings.cols){
+                divideBy = settings.cols / 4;
+            }else if(settings.rows > 4){
+                divideBy = settings.rows / 4;
+            }
+
+            settings.cols = Math.floor(settings.cols / divideBy);
+            settings.rows = Math.floor(settings.rows / divideBy);
+        }
     }
 
     calculateRows(squareWidth) {
