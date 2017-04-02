@@ -1,8 +1,8 @@
 "use strict";
 
 /*global VisualView
-global VisualEffects
-global gifObj*/
+ global VisualEffects
+ global gifObj*/
 
 class gifVisual {
 
@@ -15,50 +15,79 @@ class gifVisual {
         this.visual = window;
         this.firstIndex = 0;
         this.word = "TRAP";
-        
+        this.io = null;
+
+
         this.index = 0;
 
         this.mainElement = this.visual.document.querySelector(".wrapper-main");
         this.initControls.call(this, effects);
         this.initEvents.call(this, view);
         this.getImages.call(this);
+        this.initSockets.call(this);
 
         //setInterval(this.switchRandom.bind(this), 3000);
         window.addEventListener("keypress", this.onKey.bind(this));
 
-        this.clickEffect = setInterval(()=>{
+        this.clickEffect = setInterval(()=> {
             this.changeTitle();
         }, 500);
+
+
     }
 
-    changeTitle(word){
+    initSockets() {
+
+        this.io = io ? io() : null;
+        if(this.io == null){
+            return false;
+        }
+
+        this.io.on('connecti', ()=> {
+            this.io.emit("init", {type: "controller"});
+            this.io.on("update", data => this.onUpdate.call(this, data));
+        });
+
+
+    }
+
+    onUpdate(data) {
+
+        if (data.type == "changeImages") {
+            this.getImages.call(this);
+        } else if (data.type == "changeGrid") {
+            this.view.initGrid.call(this.view, null, data.cols);
+        }
+    }
+
+    changeTitle(word) {
         let title = document.querySelector("#header-title");
-        if(this.word=="TRAP"){
+        if (this.word == "TRAP") {
             this.word = "CLICK";
-        }else {
+        } else {
             this.word = "TRAP";
         }
-        if(word){
+        if (word) {
             this.word = word;
         }
-        title.innerHTML = this.word+" DA FUCK UP"
+        title.innerHTML = this.word + " DA FUCK UP"
 
     }
 
     initControls(effects) {
         // $("#control-random").click(this.switchRandom.bind(this));
         /*$("#control-switch").click(this.mapImages.bind(this, parseInt(4)));
-        $("#control-roll").click(()=>{
-            let elements = document.querySelectorAll(".gif");
-            effects.applyEffect(elements, "colorRoll")
-        });
-        $("#control-zoom").click(()=>{
-            let elements = document.querySelectorAll(".gif");
-            effects.applyEffect(elements, "zoomRoll")
-        });*/
+         $("#control-roll").click(()=>{
+         let elements = document.querySelectorAll(".gif");
+         effects.applyEffect(elements, "colorRoll")
+         });
+         $("#control-zoom").click(()=>{
+         let elements = document.querySelectorAll(".gif");
+         effects.applyEffect(elements, "zoomRoll")
+         });*/
 
 
-        document.querySelector("#header").addEventListener("click",e => {
+        document.querySelector("#header").addEventListener("click", e => {
             //this.switchBlinker.call(this);
 
             this.effects.nextEffect();
@@ -68,12 +97,12 @@ class gifVisual {
 
         })
         /*document.addEventListener("touchstart", e => {
-            this.switchBlinker.call(this, true);
-        });
+         this.switchBlinker.call(this, true);
+         });
 
-        document.addEventListener("touchend", e => {
-            this.switchBlinker.call(this, false);
-        });*/
+         document.addEventListener("touchend", e => {
+         this.switchBlinker.call(this, false);
+         });*/
     }
 
     initEvents(view) {
@@ -102,16 +131,16 @@ class gifVisual {
     }
 
     getImages(index) {
-        
-        
-        index = index ? index : Math.floor(Math.random()*gifObj.length);
-        
-        if(this.index == index){
+
+
+        index = index ? index : Math.floor(Math.random() * gifObj.length);
+
+        if (this.index == index) {
             this.index++;
-            if(this.index == gifObj.length){
+            if (this.index == gifObj.length) {
                 this.index = 0;
             }
-        }else {
+        } else {
             this.index = index;
         }
 

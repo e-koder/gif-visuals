@@ -10,8 +10,8 @@ class Server {
     constructor(){
 
         this.app = express();
-        this.http = http.Server(this.app);
-        this.io = socket(this.http);
+        this.server =  http.createServer(this.app);
+        this.io = socket(this.server);
 
         //this.app.use(express.static('public'));
         this.app.use(express.static(path.join(__dirname, 'public')))
@@ -25,14 +25,28 @@ class Server {
             res.sendfile(__dirname + '/public/mobile/mobile.html');
         });
 
-        this.io.on('connection', function(socket){
-            console.log('a user connected');
-        });
 
-
-        this.app.listen(3000, function(){
+        this.server.listen(3000, function(){
             console.log('listening on *:3000');
         });
+
+        this.io.on('connection', function(socket){
+
+            socket.on("init", (data)=>{
+                console.log(data);
+            });
+
+            socket.on("update", data => {
+                socket.broadcast.emit("update", data);
+            })
+        });
+
+
+    }
+
+    initSockets(){
+
+
     }
 
 }
