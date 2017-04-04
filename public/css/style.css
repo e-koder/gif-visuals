@@ -11,6 +11,10 @@ body, html {
     font-family: 'Oswald', sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
 .wrapper-main {
     opacity: .8;
     display: flex;
@@ -58,7 +62,7 @@ body, html {
 }
 
 .header {
-     cursor: pointer !important;
+    cursor: pointer !important;
     position: absolute;
     left: 50%;
     top: 50%;

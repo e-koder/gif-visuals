@@ -17,7 +17,9 @@ class mobileController {
 
     onClick(e){
         let target = e.target;
-        this.emitUpdate.call(this, target.name, target.value);
+        if(target.name.length && target.value != null && target.value.length){
+            this.emitUpdate.call(this, target.name, target.value);
+        }
     }
 
     emitUpdate(type, value){

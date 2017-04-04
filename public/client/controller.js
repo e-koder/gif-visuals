@@ -21,18 +21,12 @@ class gifVisual {
         this.index = 0;
 
         this.mainElement = this.visual.document.querySelector(".wrapper-main");
-        this.initControls.call(this, effects);
         this.initEvents.call(this, view);
         this.getImages.call(this);
         this.initSockets.call(this);
 
         //setInterval(this.switchRandom.bind(this), 3000);
         window.addEventListener("keypress", this.onKey.bind(this));
-
-        this.clickEffect = setInterval(()=> {
-            this.changeTitle();
-        }, 500);
-
 
     }
 
@@ -61,52 +55,21 @@ class gifVisual {
             this.effects.applyEffectType(update.value);
         }else if(update.type == "speed"){
             this.effects.changeSpeed(parseFloat(update.value));
+        }else if(update.type == "word"){
+            this.changeWord(update.value);
         }
     }
 
-    changeTitle(word) {
-        let title = document.querySelector("#header-title");
-        if (this.word == "TRAP") {
-            this.word = "CLICK";
-        } else {
-            this.word = "TRAP";
+    changeWord(word) {
+
+        let header = document.querySelector("#header-title");
+        header.innerHTML = word;
+        if(word.length){
+            header.classList.remove("hidden");
+        }else {
+            header.classList.add("hidden");
         }
-        if (word) {
-            this.word = word;
-        }
-        title.innerHTML = this.word + " DA FUCK UP"
 
-    }
-
-    initControls(effects) {
-        // $("#control-random").click(this.switchRandom.bind(this));
-        /*$("#control-switch").click(this.mapImages.bind(this, parseInt(4)));
-         $("#control-roll").click(()=>{
-         let elements = document.querySelectorAll(".gif");
-         effects.applyEffect(elements, "colorRoll")
-         });
-         $("#control-zoom").click(()=>{
-         let elements = document.querySelectorAll(".gif");
-         effects.applyEffect(elements, "zoomRoll")
-         });*/
-
-
-        document.querySelector("#header").addEventListener("click", e => {
-            //this.switchBlinker.call(this);
-
-            this.effects.nextEffect();
-            let effect = this.effects.effect;
-            clearInterval(this.clickEffect);
-            this.changeTitle(effect.desc);
-
-        })
-        /*document.addEventListener("touchstart", e => {
-         this.switchBlinker.call(this, true);
-         });
-
-         document.addEventListener("touchend", e => {
-         this.switchBlinker.call(this, false);
-         });*/
     }
 
     initEvents(view) {
@@ -127,7 +90,6 @@ class gifVisual {
         }));
 
         view.onUpdate = (settings) => {
-            console.log(settings);
             this.effects.updateElements(settings);
         };
 
