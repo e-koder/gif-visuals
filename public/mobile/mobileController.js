@@ -13,34 +13,19 @@ class mobileController {
 
         document.onclick = e=> {this.onClick.call(this,e)};
 
-
-
     }
 
     onClick(e){
         let target = e.target;
-        if(target.id == "changeImages"){
-            this.changeImages.call(this);
-        }else if(target.className == "changeGrid"){
-            this.changeGrid.call(this, parseInt(target.innerHTML));
-        }
-
+        this.emitUpdate.call(this, target.name, target.value);
     }
 
-    changeGrid(cols){
-
+    emitUpdate(type, value){
         this.io.emit("update", {
-            type: "changeGrid",
-            cols
+            type,
+            value
         })
     }
-
-    changeImages(){
-        this.io.emit("update", {
-            type: "changeImages"
-        })
-    }
-
 
 }
 

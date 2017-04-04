@@ -43,7 +43,7 @@ class gifVisual {
             return false;
         }
 
-        this.io.on('connecti', ()=> {
+        this.io.on('connect', ()=> {
             this.io.emit("init", {type: "controller"});
             this.io.on("update", data => this.onUpdate.call(this, data));
         });
@@ -51,12 +51,16 @@ class gifVisual {
 
     }
 
-    onUpdate(data) {
+    onUpdate(update) {
 
-        if (data.type == "changeImages") {
+        if (update.type == "images") {
             this.getImages.call(this);
-        } else if (data.type == "changeGrid") {
-            this.view.initGrid.call(this.view, null, data.cols);
+        } else if (update.type == "grid") {
+            this.view.initGrid.call(this.view, null, parseInt(update.value));
+        }else if(update.type == "effect"){
+            this.effects.applyEffectType(update.value);
+        }else if(update.type == "speed"){
+            this.effects.changeSpeed(parseFloat(update.value));
         }
     }
 

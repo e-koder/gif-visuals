@@ -27,6 +27,8 @@ class VisualEffects {
         this.frame = 0;
         this.interval = null;
         this.settings = null;
+        this.ms = 2000;
+        this.globalSpeed = 1;
 
         this.applyEffect = (index) => {
             if(effectsDef[index]){
@@ -35,12 +37,27 @@ class VisualEffects {
             }
         };
 
-        this.updateElements = (settings) => {
+        this.applyEffectType = (effectType) => {
+            for(let i=0; i<effectsDef.length; i++){
+                if(effectType == effectsDef[i].type){
+                    this.applyEffect(i);
+                    return true;
+                }
+            }
+            return false;
+        };
 
+        this.changeSpeed = (globalSpeed) => {
+            this.globalSpeed = globalSpeed;
+            this.setTiming.call(this, null);
+        };
+
+        this.updateElements = (settings) => {
             this.elements = settings.elements;
             this.settings = settings;
             this.initEffect.call(this);
             this.frame = 0;
+
         };
 
         this.nextEffect = () => {
@@ -53,6 +70,8 @@ class VisualEffects {
 
     setTiming(ms) {
 
+        this.ms = ms ? ms : this.ms;
+
         if (this.interval) {
             clearInterval(this.interval);
         }
@@ -61,7 +80,7 @@ class VisualEffects {
 
         this.interval = setInterval(() => {
             this.onFrame.call(this);
-        }, ms);
+        }, this.ms / this.globalSpeed);
     }
     
      initEffect(effect) {
@@ -81,10 +100,6 @@ class VisualEffects {
 
         this.setTiming.call(this, effect.time);
 
-    }
-
-    resetEffectModes(element){
-        element.classList.remove("active", "previous", "range", "even", "odd", "row", "col", "above", "bellow")
     }
 
     renderEffect(frame){
