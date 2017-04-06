@@ -89,16 +89,16 @@ body, html {
 }
 
 .header .date {
-    margin: auto;
-    margin-bottom:-17px;
+    margin: -5px auto;
     display: inline-block;
-    padding: 0px 20px 20px 20px;
+    padding: 0px 20px 8px 20px;
     transform: rotateZ(-1deg);
     background: white;
     color: black;
     letter-spacing: 2px;
     font-size: 1.6em;
     z-index: 0;
+    width: auto;
 }
 
 .header .info {
