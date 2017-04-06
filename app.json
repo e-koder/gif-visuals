@@ -1,0 +1,8 @@
+{
+  "name": "Gif visuals app",
+  "description": "TDFU GIF VISUALS",
+  "repository": "https://github.com/peralov/gif-visuals",
+  "logo": "https://scontent.cdninstagram.com/t51.2885-19/s150x150/17596050_1147940371982442_8058159495487946752_a.jpg",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}
