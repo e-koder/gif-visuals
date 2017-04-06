@@ -104,7 +104,7 @@ class gifVisual {
     getImages(index) {
         
         
-        index = index ? index : Math.floor(Math.random()*gifObj.length);
+        index = index ? index : 0;//Math.floor(Math.random()*gifObj.length);
         
         if(this.index == index){
             this.index++;
