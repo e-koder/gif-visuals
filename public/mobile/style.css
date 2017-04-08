@@ -32,3 +32,21 @@ input {
 button.changeGrid {
     min-width: 30px;
 }
+
+.imageTree {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+    border: 1px solid black;
+}
+
+.imageTree-item {
+    max-width: 20%;
+    padding: 5px;
+}
+
+.imageTree-item img {
+    width: 100%;
+    height: 100%;
+}

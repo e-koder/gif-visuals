@@ -80,9 +80,9 @@ class VisualView {
         
         let settings = this.settings;
         
-        if(!c){
+        /*if(!c){
             this.optimizeGrid.call(this);
-        }
+        }*/
 
         images = images ? images : settings.images;
         let cols = c ? c : settings.cols;

@@ -21,9 +21,10 @@ class gifVisual {
         this.index = 0;
 
         this.mainElement = this.visual.document.querySelector(".wrapper-main");
-        this.initEvents.call(this, view);
-        this.getImages.call(this);
+
+        //this.getImages.call(this);
         this.initSockets.call(this);
+        this.initEvents.call(this, this.view);
 
         //setInterval(this.switchRandom.bind(this), 3000);
         window.addEventListener("keypress", this.onKey.bind(this));
@@ -33,50 +34,41 @@ class gifVisual {
     initSockets() {
 
         this.io = io ? io() : null;
-        if(this.io == null){
+        if (this.io == null) {
             return false;
         }
 
-        this.io.on('connect', ()=> {
-            this.io.emit("init", {type: "controller"});
+        this.io.on("connect", ()=> {
+            this.io.emit("init", data => this.init.call(this, data));
             this.io.on("update", data => this.onUpdate.call(this, data));
         });
 
 
     }
 
-    onUpdate(update) {
+    init(data){
 
-        if (update.type == "images") {
-            this.getImages.call(this);
-        } else if (update.type == "grid") {
-            this.view.initGrid.call(this.view, null, parseInt(update.value));
-        }else if(update.type == "effect"){
-            this.effects.applyEffectType(update.value);
-        }else if(update.type == "speed"){
-            this.effects.changeSpeed(parseFloat(update.value));
-        }else if(update.type == "word"){
-            this.changeWord(update.value);
-        }
+        this.loadImages.call(this, data.images);
+        this.changeWord(data.word);
+        this.view.initGrid.call(this.view, null, data.grid);
+        this.effects.applyEffectType(data.effect);
+        this.effects.changeSpeed(data.speed);
+
     }
 
-    changeWord(word) {
+    loadImages(images){
 
-        let header = document.querySelector("#header-title");
-        header.innerHTML = word;
-        if(word.length){
-            header.classList.remove("hidden");
-        }else {
-            header.classList.add("hidden");
-        }
+        this.images = images;
+        helpers.shuffle(this.images);
 
+        this.view.initGrid.call(this.view, this.images);
     }
 
     initEvents(view) {
 
         let timeout = null;
 
-        ['orientationchange', 'resize'].forEach(event => window.addEventListener(event, () => {
+        ["orientationchange", "resize"].forEach(event => window.addEventListener(event, () => {
 
             if (timeout) {
                 clearTimeout(timeout);
@@ -93,35 +85,39 @@ class gifVisual {
             this.effects.updateElements(settings);
         };
 
+    }
+
+    onUpdate(update) {
+
+        let data = update.data;
+        let type= update.type;
+
+        if (type == "images") {
+            this.loadImages.call(this, data.images);
+        } else if (type == "grid") {
+            this.view.initGrid.call(this.view, null, data.grid);
+        } else if (type == "effect") {
+            this.effects.applyEffectType(data.effect);
+        } else if (type == "speed") {
+            this.effects.changeSpeed(data.speed);
+        } else if (type == "word") {
+            this.changeWord(data.word);
+        }
 
     }
 
-    getImages(index) {
+    changeWord(word) {
 
-
-        index = index ? index : Math.floor(Math.random() * gifObj.length);
-
-        if (this.index == index) {
-            this.index++;
-            if (this.index == gifObj.length) {
-                this.index = 0;
-            }
+        let header = document.querySelector("#header-title");
+        header.innerHTML = word;
+        if (word.length) {
+            header.classList.remove("hidden");
         } else {
-            this.index = index;
+            header.classList.add("hidden");
         }
 
-        let gifs = gifObj[index].list;
-        let gifsRoot = gifObj[index].root;
-
-        this.images = [];
-
-        for (var i = 0; i < gifs.length; i++) {
-            this.images.push(gifsRoot + gifs[i]);
-            helpers.shuffle(this.images);
-        }
-
-        this.view.initGrid.call(this.view, this.images);
     }
+
 
     onKey(e) {
         var key = e.key;
@@ -149,7 +145,7 @@ class gifVisual {
                 this.effects.applyEffect(4);
                 break;
             case "a":
-                this.getImages.call(this);
+                //this.getImages.call(this);
                 break;
             case "s":
                 let header = document.querySelector("#header");
@@ -166,8 +162,5 @@ window.onload = () => {
     let view = new VisualView(document.querySelector(".wrapper-main"));
     let effects = new VisualEffects(view);
     let controller = new gifVisual(view, effects);
-
-    var socket = io.connect('http://localhost:3000');
-
 
 };
