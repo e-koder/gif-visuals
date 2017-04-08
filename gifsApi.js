@@ -1,3 +1,4 @@
+"use strict";
 const imagePath = "public/gifs/";
 const fs = require("fs");
 
