@@ -63,7 +63,7 @@
     height: 100% !important;
     margin: 0;
     transform: translateX(-120%);
-    transition: transform 0s, top 0s, left 0s, width 0s, height 0s;
+    transition: transform .4s, top 0s, left 0s, width 0s, height 0s;
 }
 
 .swipeEffect .inner-div {
@@ -73,18 +73,20 @@
 }
 
 .swipeEffect.prev {
-    transition: transform 1s;
+    display: block !important;
     transform: translateX(100%);
-    z-index: 1000;
+    z-index: 0;
 }
 
 .swipeEffect.active {
-    transition: transform 1s;
-    z-index: 500;
+    display: block !important;
+    z-index: 1000 !important;
     transform: translateX(0%);
 }
 
 .swipeEffect.next {
+    display: block !important;
+    z-index: 500;
     transition: transform 0s;
     transform: translateX(-100%);
 }
