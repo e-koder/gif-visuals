@@ -42,7 +42,7 @@ class gifsApi {
         };
 
         this.setSpeed = (speed) => {
-            this.speed = parseInt(speed);
+            this.speed = Number(speed);
         };
 
         this.setImages = (index, hidden) => {
